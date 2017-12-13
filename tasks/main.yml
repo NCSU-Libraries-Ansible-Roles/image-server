@@ -1,0 +1,13 @@
+---
+- name: NODE_CONFIG_DIR for node-config
+  lineinfile:
+    dest: /etc/bashrc
+    line: export NODE_CONFIG_DIR={{app_deploy_path}}/config
+
+- name: nginx configuration file
+  template:
+    src: nginx.conf
+    dest: "/etc/nginx/conf.d/{{project_name}}-nginx.conf"
+
+- name: restart nginx
+  service: name=nginx state=restarted
